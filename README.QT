@@ -1,0 +1,6 @@
+autoreconf -i -f
+./configure MAKE=mingw32-make --disable-silent-rules
+mingw32-make
+
+open file.pro
+
