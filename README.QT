@@ -1,6 +1,9 @@
-autoreconf -i -f
-./configure MAKE=mingw32-make --disable-silent-rules
-mingw32-make
+In MINGW32, run following commands.
+
+$ pacman -S mingw-w64-i686-libtool
+$ autoreconf -i
+$ ./configure MAKE=mingw32-make --disable-silent-rules
+$ mingw32-make
 
 open file.pro
 
