@@ -116,6 +116,8 @@ private const struct option long_options[] = {
     {0, 0, NULL, 0}
     };
 
+#include <windows.h>
+
 private const struct {
 	const char *name;
 	int value;
@@ -169,7 +171,7 @@ private void applyparam(magic_t);
  * main - parse arguments and handle options
  */
 int
-main(int argc, char *argv[])
+main2(int argc, char *argv[])
 {
 	int c;
 	size_t i;
@@ -419,6 +421,61 @@ out:
 		magic_close(magic);
 	return e;
 }
+
+
+
+char* UTF16toUTF8(const wchar_t* pIN)
+{
+    DWORD flag=0;
+    int len = WideCharToMultiByte(CP_UTF8,
+                        flag,
+                        pIN,
+                        -1,
+                        NULL,
+                        0,
+                        NULL,
+                        NULL);
+    char* pOut = malloc(len);
+    int ret = WideCharToMultiByte(CP_UTF8,
+                                  flag,
+                                  pIN,
+                                  -1,
+                                  pOut,
+                                  len,
+                                  NULL,
+                                  NULL);
+    if(ret != len)
+    {
+        free(pOut);
+        return NULL;
+    }
+    return pOut;
+}
+int main()
+{
+    int i;
+    int argc = 0;
+    int ret;
+    wchar_t** wargv = CommandLineToArgvW(GetCommandLineW(), &argc);
+
+    char** argv = malloc((argc+1)*sizeof(char*));
+    memset(argv, 0, (argc+1)*sizeof(char*));
+
+    for(i=0 ; i < argc ; ++i)
+    {
+        argv[i] = UTF16toUTF8(wargv[i]);
+    }
+
+    ret = main2(argc,argv);
+
+    for(i=0 ; i < argc ; ++i)
+    {
+        free(argv[i]);
+    }
+    LocalFree(wargv);
+    return ret;
+}
+
 
 private void
 applyparam(magic_t magic)

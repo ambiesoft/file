@@ -99,6 +99,8 @@ handle_mime(struct magic_set *ms, int mime, const char *str)
 	return 0;
 }
 
+#include "myhelp.h"
+
 protected int
 file_fsmagic(struct magic_set *ms, const char *fn, struct stat *sb)
 {
@@ -124,13 +126,16 @@ file_fsmagic(struct magic_set *ms, const char *fn, struct stat *sb)
 		ret = lstat(fn, sb);
 	else
 #endif
-	ret = stat(fn, sb);	/* don't merge into if; see "ret =" above */
+
+    ret = mmystat(fn, sb);	/* don't merge into if; see "ret =" above */
 
 #ifdef WIN32
 	{
-		HANDLE hFile = CreateFile((LPCSTR)fn, 0, FILE_SHARE_DELETE |
+        wchar_t* wfn = UTF8toUTF16(fn);
+        HANDLE hFile = CreateFileW(wfn, 0, FILE_SHARE_DELETE |
 		    FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0,
 		    NULL);
+        free(wfn);
 		if (hFile != INVALID_HANDLE_VALUE) {
 			/*
 			 * Stat failed, but we can still open it - assume it's

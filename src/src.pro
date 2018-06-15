@@ -1,3 +1,4 @@
+TARGET = file
 TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
@@ -41,7 +42,8 @@ SOURCES += \
     strlcat.c \
     strlcpy.c \
     teststrchr.c \
-    vasprintf.c
+    vasprintf.c \
+    myhelp.c
 
 HEADERS += \	
         file.h \
@@ -54,7 +56,8 @@ HEADERS += \
     patchlevel.h \
     readelf.h \
     tar.h \
-    ../config.h
+    ../config.h \
+    myhelp.h
 
 LIBS += -lgnurx -lz -lShlwapi
 

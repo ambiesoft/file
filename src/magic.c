@@ -443,7 +443,7 @@ file_or_fd(struct magic_set *ms, const char *inname, int fd)
 			pos = lseek(fd, (off_t)0, SEEK_CUR);
 	} else {
 		int flags = O_RDONLY|O_BINARY;
-		int okstat = stat(inname, &sb) == 0;
+        int okstat = mmystat(inname, &sb) == 0;
 
 		if (okstat && S_ISFIFO(sb.st_mode)) {
 #ifdef O_NONBLOCK
@@ -453,7 +453,7 @@ file_or_fd(struct magic_set *ms, const char *inname, int fd)
 		}
 
 		errno = 0;
-		if ((fd = open(inname, flags)) < 0) {
+        if ((fd = myopen(inname, flags)) < 0) {
 #ifdef WIN32
 			/*
 			 * Can't stat, can't open.  It may have been opened in
