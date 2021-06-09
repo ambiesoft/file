@@ -1,0 +1,32 @@
+﻿1. autoreconf -i
+2. ./configure --prefix=/opt/file MAKE=mingw32-make --disable-silent-rules
+3. mingw32-make
+4. mingw32-make install
+
+autoreconf -iによって作られるもの
+
+aclocal.m4
+compile
+config.guess
+config.h.in
+config.sub
+configure
+depcomp
+install-sh
+ltmain.sh
+Makefile.in
+missing
+
+
+./configureによって作られるもの
+config.h
+config.log
+config.status
+libtool
+Makefile
+stamp-h1
+
+
+mingw32-makeによって作られるもの
+.oとかの実行ファイル
+
