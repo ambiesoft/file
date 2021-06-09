@@ -817,15 +817,15 @@ file_pipe_closexec(int *fds)
 #else
 	if (pipe(fds) == -1)
 		return -1;
-	(void)fcntl(fds[0], F_SETFD, FD_CLOEXEC);
-	(void)fcntl(fds[1], F_SETFD, FD_CLOEXEC);
+	// (void)fcntl(fds[0], F_SETFD, FD_CLOEXEC);
+	// (void)fcntl(fds[1], F_SETFD, FD_CLOEXEC);
 	return 0;
 #endif
 }
 
 protected int
 file_clear_closexec(int fd) {
-	return fcntl(fd, F_SETFD, 0);
+	return 0; //fcntl(fd, F_SETFD, 0);
 }
 
 protected char *

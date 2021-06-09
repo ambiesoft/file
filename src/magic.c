@@ -37,6 +37,7 @@ FILE_RCSID("@(#)$File: magic.c,v 1.114 2021/02/05 21:33:49 christos Exp $")
 #endif	/* lint */
 
 #include "magic.h"
+#include "myhelp.h"
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -461,7 +462,7 @@ file_or_fd(struct magic_set *ms, const char *inname, int fd)
 			goto done;
 		}
 #if O_CLOEXEC == 0
-		(void)fcntl(fd, F_SETFD, FD_CLOEXEC);
+		// (void)fcntl(fd, F_SETFD, FD_CLOEXEC);
 #endif
 	}
 
