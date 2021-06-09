@@ -23,6 +23,7 @@ Makefile.in
 /configure
 /depcomp
 /install-sh
+/libmagic.pc
 /libtool
 /ltmain.sh
 /m4
@@ -37,3 +38,5 @@ Makefile.in
 
 /src/file
 /src/magic.h
+
+/tests/test
